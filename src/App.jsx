@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -18,25 +19,9 @@ function App() {
 
       <Routes>      
         <Route path="/" element={<HomePage />} />
-
-        <Route
-          path="/projects"
-          element={ <IsPrivate> <ProjectListPage /> </IsPrivate> } 
-        />
-
-        <Route
-          path="/projects/:projectId"
-          element={ <IsPrivate> <ProjectDetailsPage /> </IsPrivate> }
-        />
-
-        <Route
-          path="/projects/edit/:projectId"
-          element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } 
-        />
-        
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
-
+        <Route path="/profile" element={<IsPrivate><Profile/></IsPrivate>} />
       </Routes>
     </div>
   );

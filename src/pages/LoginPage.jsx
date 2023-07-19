@@ -17,23 +17,24 @@ function LoginPage(props) {
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async(e) => {
     e.preventDefault();
     const requestBody = { email, password };
 
-    axios
-      .post(`${API_URL}/auth/login`, requestBody)
-      .then((response) => {
-        console.log("JWT token", response.data.authToken);
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, requestBody);
+      /* console.log("JWT token", response.data.authToken); */
 
+      if(response.status === 200 ||response.status === 304){
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
-      });
+        navigate("/profile");
+      }
+      
+    } catch (error) {
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
+    }
   };
 
   return (

@@ -8,7 +8,7 @@ function IsPrivate({ children }) {
   // If the authentication is still loading ⏳
   if (isLoading) return <p>Loading ...</p>;
 
-  if (!isLoggedIn) {
+  if (!isLoggedIn && !isLoading) {
   // If the user is not logged in ❌
     return <Navigate to="/login" />;
   } else {
