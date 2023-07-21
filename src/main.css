@@ -1,0 +1,25 @@
+h4{
+    margin: 0;
+}
+.showpop{
+    width: 80vw;
+    height: 80vh;
+    background-color: red;
+    position: absolute;
+    top: 10vh;
+    right: 10vw;
+}
+
+.none{
+    display: none;
+}
+
+.thumb{
+    width: 5rem;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(4, 0.5fr);
+    grid-gap: 5px;
+}
