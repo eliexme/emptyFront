@@ -11,6 +11,8 @@ import LoginPage from "./pages/LoginPage";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/IsAnon";
 import Profile from "./pages/Profile";
+import AddExercise from "./pages/AddExercise";
+import ExerciseVenue from "./pages/ExerciseVenue";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
         <Route path="/profile" element={<IsPrivate><Profile/></IsPrivate>} />
+        <Route path="/addexer" element={<AddExercise />} />
+        <Route path="/exervenue" element={<ExerciseVenue />} />
       </Routes>
     </div>
   );
