@@ -5,8 +5,9 @@ export default function Profile() {
     const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
     const [showpop, setShowpop] = useState(false)
     const [allexercises, setAllexercises] = useState([])
-    const [newrutina, setNewrutina] = useState([])
+    const [rutinaId, setrutinaId] = useState([])
     const [rutinadata, setRutinadata] = useState([])
+    const [payload, setPayload] = useState([])
 
     const toggleRutina = ()=>{
         setShowpop(!showpop)
@@ -21,8 +22,8 @@ export default function Profile() {
     }
 
     const addToRutina = (exerId) => {
-        if (!newrutina.includes(exerId)) {
-            setNewrutina((prevRutina) => {
+        if (!rutinaId.includes(exerId)) {
+            setrutinaId((prevRutina) => {
                 const updatedRutina = [...prevRutina, exerId];
                 setRutinadata(allexercises.filter((eachExer) => updatedRutina.includes(eachExer._id)));
                 return updatedRutina;
@@ -30,13 +31,33 @@ export default function Profile() {
         }
     };
 
+    const deleteExer = (e, exerId)=>{
+        e.preventDefault()
+        const deleted = rutinaId.filter((eachExer) => eachExer !== exerId)
+        setrutinaId(deleted)
+        const updatedData = rutinadata.filter((eachExer)=>eachExer._id !== exerId)
+        setRutinadata(updatedData)
+    }
+
+    const handleChange = (e, exerId)=>{
+        const {name, value} = e.target
+        console.log(name, value)
+    }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+        const exer = {
+            exerciseId: '',
+            nombre: '',
+            series: 0,
+            repes: 0,
+            peso: 0
+        }
+    }
+
     useEffect(()=>{
         fetchExercises()
     },[])
-
-    useEffect(()=>{
-        console.log(rutinadata)
-    },[rutinadata])
 
 
 
@@ -63,33 +84,51 @@ export default function Profile() {
 
                         <div>
                             <h2>Tu rutina</h2>
-                            <div className='grid'>
-                                {rutinadata ? 
-                                    rutinadata.map((oneExer)=>(
-                                        <div key={oneExer._id}>
-                                            <img onClick={()=>addToRutina(oneExer._id)} className='thumb' src={oneExer.imagen}/>
+                            <form onSubmit={handleSubmit}>
+                                <div className='grid'>
+                                    {rutinadata ? 
+                                    rutinadata.length > 0 ? 
+                                        rutinadata.map((oneExer)=>(
+                                            <div key={oneExer._id}>
+                                                <img onClick={()=>addToRutina(oneExer._id)} className='thumb' src={oneExer.imagen}/>
                                             <h4>{oneExer.nombre}</h4>
-                                            <form>
+                                            <div>
                                                 <div>
                                                     <label>Series</label>
-                                                    <input type='number'/>
+                                                    <input type='number' name={payload.series} onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
 
                                                 <div>
                                                     <label>Repes</label>
-                                                    <input type='number'/>
+                                                    <input type='number' name={payload.repes} onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
 
                                                 <div>
                                                     <label>Peso</label>
-                                                    <input type='number'/>
+                                                    <input type='number' onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
-                                            </form>
-                                        </div>
-                                    ))
-                                : <p>Loading...</p>}
-                            </div>
+
+                                                <div>
+                                                    <button onClick={(e)=>deleteExer(e, oneExer._id)}>
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        ))
+
+                                        : <p>Please add some exercises</p>
+                                        
+                                    : <p>Loading...</p>
+                                    }
+                                </div>
+
+                                {rutinadata.length > 0 &&
+                                <button type='submit'>Crear rutina</button>}
+                                
+                            </form>
                         </div>
+
                     </div>
 
                 </div>
