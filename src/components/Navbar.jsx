@@ -17,6 +17,10 @@ function Navbar() {
         <button>Profile</button>
       </Link>
 
+      <Link to="/booking">
+        <button>Booking</button>
+      </Link>
+
       {isLoggedIn && (
         <>
           <Link to="/addexer">

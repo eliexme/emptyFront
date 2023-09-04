@@ -39,20 +39,49 @@ export default function Profile() {
         setRutinadata(updatedData)
     }
 
+    /* const handleChange = (e, exerId) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+      
+        // Copia del estado anterior
+        const prevPayload = [...payload];
+      
+        // Buscamos si ya existe un objeto con el exerciseId especificado
+        const existingExerciseIndex = prevPayload.findIndex((item) => item.exerciseId === exerId);
+      
+        if (existingExerciseIndex !== -1) {
+          // Si ya existe, actualizamos solo el campo que cambió
+          prevPayload[existingExerciseIndex] = {
+            ...prevPayload[existingExerciseIndex],
+            [name]: value,
+          };
+        } else {
+          // Si no existe, creamos un nuevo objeto con el exerciseId y el campo que cambió
+          const newExercise = {
+            exerciseId: exerId,
+            [name]: value,
+          };
+          // Agregamos el nuevo objeto al array
+          prevPayload.push(newExercise);
+        }
+      
+        // Actualizamos el estado con el nuevo array de objetos
+        setPayload(prevPayload);
+        console.log(prevPayload);
+      }; */
+    
     const handleChange = (e, exerId)=>{
+        e.preventDefault()
         const {name, value} = e.target
-        console.log(name, value)
+        
+        const prevPayload = [...payload]
+        
+
     }
+      
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        const exer = {
-            exerciseId: '',
-            nombre: '',
-            series: 0,
-            repes: 0,
-            peso: 0
-        }
     }
 
     useEffect(()=>{
@@ -86,26 +115,26 @@ export default function Profile() {
                             <h2>Tu rutina</h2>
                             <form onSubmit={handleSubmit}>
                                 <div className='grid'>
-                                    {rutinadata ? 
+                                    {rutinadata ?
                                     rutinadata.length > 0 ? 
-                                        rutinadata.map((oneExer)=>(
+                                        rutinadata.map((oneExer, i)=>(
                                             <div key={oneExer._id}>
                                                 <img onClick={()=>addToRutina(oneExer._id)} className='thumb' src={oneExer.imagen}/>
                                             <h4>{oneExer.nombre}</h4>
                                             <div>
                                                 <div>
                                                     <label>Series</label>
-                                                    <input type='number' name={payload.series} onChange={(e)=>handleChange(e, oneExer._id)}/>
+                                                    <input type='number' name='series' onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
 
                                                 <div>
                                                     <label>Repes</label>
-                                                    <input type='number' name={payload.repes} onChange={(e)=>handleChange(e, oneExer._id)}/>
+                                                    <input type='number' name='repes' onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
 
                                                 <div>
                                                     <label>Peso</label>
-                                                    <input type='number' onChange={(e)=>handleChange(e, oneExer._id)}/>
+                                                    <input type='number' name='peso' onChange={(e)=>handleChange(e, oneExer._id)}/>
                                                 </div>
 
                                                 <div>

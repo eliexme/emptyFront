@@ -1,4 +1,4 @@
-import "./App.css";
+
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -13,6 +13,8 @@ import IsAnon from "./components/IsAnon";
 import Profile from "./pages/Profile";
 import AddExercise from "./pages/AddExercise";
 import ExerciseVenue from "./pages/ExerciseVenue";
+import BookingPage from "./pages/BookingPage";
+import "./App.css";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
         <Route path="/profile" element={<IsPrivate><Profile/></IsPrivate>} />
         <Route path="/addexer" element={<AddExercise />} />
         <Route path="/exervenue" element={<ExerciseVenue />} />
+        <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </div>
   );
